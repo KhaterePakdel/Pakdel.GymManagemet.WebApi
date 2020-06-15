@@ -9,52 +9,27 @@ namespace Pakdel.GymManagement.Layers.L01_Entities.Models
 {
 
     [Table("User_T")]
-    public class User
+    public class User : Person
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
-        [MaxLength(50)]
-        [Required]
-        public string Fname { get; set; }
-
-        [MaxLength(200)]
-        [Required]
-        public string Lname { get; set; }
-
-        [Required]
-        public string NationalCode { get; set; }
-
-        [Required]
-        public string Mobile { get; set; }
-
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        public DateTime Birthdate { get; set; }
-
+        public User()
+        {
+            UserRoles = new HashSet<UserRole>();
+            UserGyms = new HashSet<UserGym>();
+            UserTokens = new HashSet<UserToken>();
+        }
         [Required]
         public bool IsAdmin { get; set; }
 
         [Required]
-        public UserStatusEnum Status { get; set; }
+        public UserStatus UserStatus { get; set; }
 
-        public string Configuration { get; set; }
-        
+        [Required]
+        public UserType UserType { get; set; }
 
-        [Column(TypeName = "datetime2")]
-        public DateTime LastLogin { get; set; }
 
-        [Column(TypeName = "datetime2")]
-        public DateTime CreationDate { get; set; }
-
-        
-
+        public  virtual ICollection<UserRole>  UserRoles { get; set; }
+        public virtual ICollection<UserGym>  UserGyms { get; set; }
+        public virtual ICollection<UserToken> UserTokens { get; set; }
 
     }
 }
